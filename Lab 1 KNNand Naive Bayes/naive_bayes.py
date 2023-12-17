@@ -54,8 +54,12 @@ class MyNaiveBayes:
 
         # print(self.y_train.value_counts(normalize=True))
 
-        priors = self.y_train.value_counts(normalize=True)
+        priors = self.y_train.value_counts()
 
+        priors += 1 * int(self.smoothing)
+                # print(len(self.priors))
+        priors /= sum(priors) + len(priors) * int(self.smoothing)
+        
         # print(priors)
 
         ##### YOUR CODE ENDS HERE #####
