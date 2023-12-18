@@ -55,17 +55,6 @@ class MyNaiveBayes:
         # print(self.y_train.value_counts(normalize=True))
         priors = self.y_train.value_counts(normalize=True)
 
-        # priors = self.y_train.value_counts()
-        
-        # print(type(priors))
-
-        # priors += 1 * int(self.smoothing)
-        # print(priors)
-
-        # priors /= sum(priors) + len(priors) * int(self.smoothing)
-        
-        # print(priors)
-
         ##### YOUR CODE ENDS HERE #####
         return priors
 
@@ -108,7 +97,7 @@ class MyNaiveBayes:
                 # print(type(data))
                 data += 1 * int(self.smoothing)
                 # print(len(self.priors))
-                data /= sum(data)
+                data /= data.sum()
                 for k in data.keys():
                     likelihoods[f"{i},{j},{k}"] = data[k]
 
