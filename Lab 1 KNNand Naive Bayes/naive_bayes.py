@@ -8,8 +8,8 @@ class MyNaiveBayes:
         # if you feel it is easier to calculate priors
         # and likelihoods at the same time
         # then feel free to change this method
-        self.X_train = X_train
-        self.y_train = y_train
+        self.X_train = X_train.copy()
+        self.y_train = y_train.copy()
         self.priors = self.calculate_priors()
         self.likelihoods = self.calculate_likelihoods()
 
@@ -54,6 +54,9 @@ class MyNaiveBayes:
 
         # print(self.y_train.value_counts(normalize=True))
         priors = self.y_train.value_counts(normalize=True)
+
+        # priors = self.y_train.value_counts()
+        # priors += 1 * int(self.smoothing) 
 
         ##### YOUR CODE ENDS HERE #####
         return priors
