@@ -43,14 +43,13 @@ class KNearestNeighbor:
       is the hamming distance between the ith test point and the jth training
       point.
     """
+        dists = np.zeros((X_test.shape[0], self.X_train.shape[0]))
 
-        num_train = self.X_train.shape[0]
-        num_test = X_test.shape[0]
-        dists = np.zeros((num_test, num_train))
-
-        for i in range(num_test):
-            dists[i, :] = np.sum(self.X_train != X_test.iloc[i, :], axis=1)
-
+        for i in range(X_test.shape[0]):
+            # print(X_test.iloc[i] != self.X_train)
+            dists[i,:] = np.sum(X_test.iloc[i,:] != self.X_train, axis=1)
+            
+        # print(dists)        
         return dists
 
     def predict_labels(self, dists, k=1):
@@ -66,16 +65,12 @@ class KNearestNeighbor:
     - y: A numpy array or pandas Series of shape (num_test,) containing the
     predicted labels for the test data
     """
-        def majority_vote(labels):
-            return labels.value_counts().index[0]
+        y_pred = []
 
-        if k == 1:
-            y_pred = self.y_train.iloc[np.argmin(dists, axis=1)]
-        else:
-            y_pred = []
-            for i in range(dists.shape[0]):
-                closest_k = np.argsort(dists[i, :])[:k]
-                closest_y = self.y_train.iloc[closest_k]
-                y_pred.append(majority_vote(closest_y))
+        for i in range(dists.shape[0]):
+            k_closest = np.argsort(dists[i])[:k]
+            y_labels = self.y_train.iloc[k_closest]            
+            # print(y_labels.value_counts().index[0])
+            y_pred.append(y_labels.value_counts().index[0])
 
         return np.array(y_pred)
