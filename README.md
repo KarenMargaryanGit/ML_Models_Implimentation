@@ -1,6 +1,6 @@
 # ML_Models
 ML Models Implimantations
 
-#### KNN
-#### Naive Bayes
-#### Decision Tree
+##### KNN
+##### Naive Bayes
+##### Decision Tree
