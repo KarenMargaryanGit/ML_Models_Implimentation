@@ -47,7 +47,8 @@ class KNearestNeighbor:
 
         for i in range(X_test.shape[0]):
             # print(X_test.iloc[i] != self.X_train)
-            dists[i,:] = np.sum(X_test.iloc[i,:] != self.X_train, axis=1)
+            dists[i,:] = np.sum(self.X_train != X_test.iloc[i,:], axis=1)
+            
             
         # print(dists)        
         return dists
